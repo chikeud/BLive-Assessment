@@ -96,7 +96,7 @@ class VideoForm extends React.Component {
     });
   }
 
-  // greys out page while saving //
+  // greys out page while saving
   static turnGrey(){
 
     let formDiv = document.getElementsByName("videoForm")[0];
@@ -167,10 +167,7 @@ class VideoForm extends React.Component {
       let curr = Number(localStorage.getItem("errors"));
       let new_val = curr + 1;
       localStorage.setItem("errors", new_val.toString());
-
       setTimeout(this.turnBack, 1000);
-      //this.turnBack();
-      console.log("shit ain't validate cuz!");
     }
     return false;
   }
@@ -223,7 +220,6 @@ const Footer = (props) => {
   }
 
   else if(props.isActive === true){
-    //console.log(props.isActive);
     return <div className="footer">
       <div className="save-button"> <a onClick={props.saveAction}> <i className="fa fa-check"> </i> SAVE</a></div>
       <div className="cancel-button"> <a onClick={props.cancelAction} >CANCEL</a></div>
