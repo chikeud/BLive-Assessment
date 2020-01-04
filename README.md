@@ -10,7 +10,10 @@ npm install
 # run webpack build
 npm run build
 
-# check for dist folder
-wait a few seconds until dist folder is created. When done, open the index.html file in the dist folder to view form.
-
 ```
+
+## Check for dist folder
+
+Wait a few seconds until dist folder is created. When done, open the index.html file in the dist folder in your browser to view form.
+
+
