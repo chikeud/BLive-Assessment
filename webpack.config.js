@@ -2,6 +2,9 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: ['babel-polyfill', './src/index.js'],
+  performance: {
+    hints: false
+  },
   module: {
     rules: [
       {
