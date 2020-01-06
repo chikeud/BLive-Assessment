@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from "react-dom";
-import './style.css';
+import '../style.css';
+import Footer from "../Footer/Footer";
 import axios from 'axios';
 
 
@@ -33,6 +34,7 @@ class VideoForm extends React.Component {
 
   };
 
+  // handle live change of field values in states
   handleChange(e) {
     let fields = this.state.fields;
     fields[e.target.name] = e.target.value;
@@ -41,13 +43,13 @@ class VideoForm extends React.Component {
     });
   }
 
+  // helper function to activate
   activate() {
     this.setState({isActive: true});
   }
 
   // ensures label and description fields match reasonable format
   validateForm() {
-
     let fields = this.state.fields;
     let errors = {};
     let formIsValid = true;
@@ -98,7 +100,6 @@ class VideoForm extends React.Component {
 
   // greys out page while saving
   static turnGrey(){
-
     let formDiv = document.getElementsByName("videoForm")[0];
     formDiv.style.opacity = 0.5;
 
@@ -156,10 +157,9 @@ class VideoForm extends React.Component {
             isSaving: false,
           });
         }, 1000);
-
+        setTimeout(this.turnBack, 1000);
       }
     }
-
     else {
       this.setState({
         hasErrors: true
@@ -193,43 +193,6 @@ class VideoForm extends React.Component {
     );
   }
 }
-
-
-// Footer component that takes in a bunch of state variables from the render and determines view as such.
-
-const Footer = (props) => {
-  if (props.hasErrors === true){
-    return <div className="footer">
-      <div className="save-button"> <a onClick={props.saveAction}> <i className="fa fa-check"> </i>SAVE</a></div>
-      <div className="cancel-button err"> <a onClick={props.cancelAction}>CANCEL</a></div>
-    </div>
-  }
-
-  if (props.isSaved === true){
-    return <div className="footer">
-      <div className="saved-button"><a> <i className="fa fa-check"> </i>SAVED</a></div>
-      <div className="cancelled-button"> </div>
-    </div>
-  }
-
-  else if (props.isSaving === true){
-    return <div className="footer">
-      <div className="save-button"><a>SAVING...</a></div>
-      <div className="cancel-button"> </div>
-    </div>
-  }
-
-  else if(props.isActive === true){
-    return <div className="footer">
-      <div className="save-button"> <a onClick={props.saveAction}> <i className="fa fa-check"> </i> SAVE</a></div>
-      <div className="cancel-button"> <a onClick={props.cancelAction} >CANCEL</a></div>
-    </div>
-  }
-  else {
-    return <div className="footer">
-    </div>
-  }
-};
 
 export default VideoForm;
 const wrapper = document.getElementById("create-video-form");
