@@ -1,5 +1,5 @@
 import React from 'react';
-import '../style.css';
+import '../../style.css';
 
 // Footer component that takes in a bunch of state variables from the render and determines view as such.
 const Footer = (props) => {

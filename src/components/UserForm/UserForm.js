@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from "react-dom";
-import '../style.css';
+import '../../style.css';
 import Footer from "../Footer/Footer";
 import axios from 'axios';
 
