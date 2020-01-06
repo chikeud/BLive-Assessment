@@ -31,6 +31,8 @@ class VideoForm extends React.Component {
     this.validateForm = this.validateForm.bind(this);
     this.turnBack = VideoForm.turnBack.bind(this);
     this.turnGrey = VideoForm.turnGrey.bind(this);
+    this.updateSaveState = this.updateSaveState.bind(this);
+    this.updateErrorState = this.updateErrorState.bind(this);
 
   };
 
@@ -99,7 +101,7 @@ class VideoForm extends React.Component {
   }
 
   // greys out page while saving
-  static turnGrey(){
+  static turnGrey() {
     let formDiv = document.getElementsByName("videoForm")[0];
     formDiv.style.opacity = 0.5;
 
@@ -108,12 +110,39 @@ class VideoForm extends React.Component {
   }
 
   // turns back to active form after saving
-  static turnBack(){
+  static turnBack() {
     let formDiv = document.getElementsByName("videoForm")[0];
     formDiv.style.opacity = 1;
 
     let title = document.getElementsByClassName("heading")[0];
     title.style.opacity = 1;
+  }
+
+  updateSaveState() {
+    let curr = Number(localStorage.getItem("successes"));
+    let new_val = curr + 1;
+    localStorage.setItem("successes", new_val.toString());
+
+    setTimeout(() => {
+      this.setState({
+        hasErrors: false,
+        headerLabel: this.state.fields.label,
+        isSaved: true,
+        isActive: false,
+        isSaving: false,
+      });
+    }, 1000);
+    setTimeout(this.turnBack, 1000);
+  }
+
+  updateErrorState() {
+    this.setState({
+      hasErrors: true
+    });
+    let curr = Number(localStorage.getItem("errors"));
+    let new_val = curr + 1;
+    localStorage.setItem("errors", new_val.toString());
+    setTimeout(this.turnBack, 1000);
   }
 
   // checks for validity of form and saves fields or returns error
@@ -144,30 +173,11 @@ class VideoForm extends React.Component {
         // pass
 
       } finally {
-        let curr = Number(localStorage.getItem("successes"));
-        let new_val = curr + 1;
-        localStorage.setItem("successes", new_val.toString());
-
-        setTimeout(() => {
-          this.setState({
-            hasErrors: false,
-            headerLabel: this.state.fields.label,
-            isSaved: true,
-            isActive: false,
-            isSaving: false,
-          });
-        }, 1000);
-        setTimeout(this.turnBack, 1000);
+        this.updateSaveState();
       }
     }
     else {
-      this.setState({
-        hasErrors: true
-      });
-      let curr = Number(localStorage.getItem("errors"));
-      let new_val = curr + 1;
-      localStorage.setItem("errors", new_val.toString());
-      setTimeout(this.turnBack, 1000);
+      this.updateErrorState();
     }
     return false;
   }

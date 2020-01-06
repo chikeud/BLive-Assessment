@@ -10,7 +10,7 @@ localStorage.setItem("errors", "0");
 localStorage.setItem('successes', "0");
 
 // function to send analytics data to random external endpoint for saving.
-const sendAnalytics = async () =>{
+const sendAnalytics = async () => {
   let data = {
     cancelClicks: localStorage.getItem("cancel-clicks"),
     saveClicks: localStorage.getItem("save-clicks"),
