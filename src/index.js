@@ -3,11 +3,15 @@ import VideoForm from './components/UserForm/UserForm'
 import React from 'react';
 import axios from 'axios';
 
+
 // Set analytics variables in local storage
-localStorage.setItem("cancel-clicks", "0");
-localStorage.setItem("save-clicks", "0");
-localStorage.setItem("errors", "0");
-localStorage.setItem('successes', "0");
+let props = ["cancel-clicks", "save-clicks", "errors", "successes"];
+for(let prop of props){
+  if(!localStorage.getItem(prop)){
+    localStorage.setItem(prop, "0");
+  }
+
+}
 
 // function to send analytics data to random external endpoint for saving.
 const sendAnalytics = async () => {
@@ -30,7 +34,9 @@ const sendAnalytics = async () => {
 };
 
 // performs sendAnalytics function before the page is refreshed and localStorage is cleared.
+// No need for this anymore. localStorage is now persistent. So we'll just have the analytics data on there
 
+/**
 window.addEventListener('beforeunload', function (e) {
   // Cancel the event
   e.preventDefault();
@@ -39,6 +45,6 @@ window.addEventListener('beforeunload', function (e) {
   sendAnalytics();
   setTimeout(delete e['returnValue'], 2000);
 });
-
+ **/
 ReactDOM.render(<VideoForm /> , document.getElementById('create-video-form'));
 
